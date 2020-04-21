@@ -1,4 +1,4 @@
-package ruay.controller;
+	package ruay.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +17,24 @@ public class HomeController {
 		response.setContentType("text/html;charset=UTF-8");
 
 		System.out.println("Home Page Requested");
-		ModelAndView model = new ModelAndView("home");
+		ModelAndView model = new ModelAndView("home"); // home.jsp
+		try {
+			
+			return model;
+		} catch (Exception e) {
+			//model.addObject("exception", e);
+			//model.addObject("url", request.getRequestURL());
+			//model.setViewName("error");
+		}
+		return model;
+	}
+	
+	@RequestMapping(value = "/about", method = RequestMethod.GET)
+	public ModelAndView about(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		response.setContentType("text/html;charset=UTF-8");
+
+		System.out.println("About Page Requested");
+		ModelAndView model = new ModelAndView();
 		try {
 			
 			return model;
