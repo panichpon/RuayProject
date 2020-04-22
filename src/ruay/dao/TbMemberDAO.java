@@ -18,8 +18,11 @@ public class TbMemberDAO implements DAO<TbMemberModel> {
 	
 	@Override
 	public int Add(TbMemberModel bean) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "INSERT INTO tb_member (name, surname, gender) "
+				+ "VALUES ('"+bean.getName()+"', "
+						+ "'"+bean.getSurname()+"', "
+						+ "'"+bean.getGender()+"')";
+		return db.add(sql, new String[] {"id"});
 	}
 
 	@Override

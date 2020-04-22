@@ -4,14 +4,22 @@ public class TbMemberModel {
 	private int id;
 	private String name;
 	private String surname;
-	private String sex;
-
-	public TbMemberModel(int id, String name, String surname, String sex) {
+	private String gender;
+	private String timeReg;
+	
+	public TbMemberModel(int id, String name, String surname, String gender, String timeReg) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
-		this.sex = sex;
+		this.gender = gender;
+		this.timeReg = timeReg;
+	}
+	
+	public TbMemberModel(String name, String surname, String gender) {
+		this.name = name;
+		this.surname = surname;
+		this.gender = gender;
 	}
 
 	public int getId() {
@@ -38,19 +46,29 @@ public class TbMemberModel {
 		this.surname = surname;
 	}
 
-	public String getSex() {
-		return sex;
+	public String getGender() {
+		return gender;
 	}
 
-	public void setSex(String sex) {
-		this.sex = sex;
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getTimeReg() {
+		return timeReg;
+	}
+
+	public void setTimeReg(String timeReg) {
+		this.timeReg = timeReg;
 	}
 
 	@Override
 	public String toString() {
-		return "TbMemberModel [id=" + id + ", name=" + name + ", surname=" + surname + ", sex=" + sex + ", getId()="
-				+ getId() + ", getName()=" + getName() + ", getSurname()=" + getSurname() + ", getSex()=" + getSex()
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
-				+ "]";
+		return "TbMember2Model [id=" + id + ", name=" + name + ", surname=" + surname + ", gender=" + gender
+				+ ", timeReg=" + timeReg + ", getId()=" + getId() + ", getName()=" + getName() + ", getSurname()="
+				+ getSurname() + ", getGender()=" + getGender() + ", getTimeReg()=" + getTimeReg() + ", getClass()="
+				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
+	
+	
 }
