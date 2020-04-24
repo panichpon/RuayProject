@@ -18,5 +18,5 @@ public interface DAO<T> {
 
 	T FindByUUID(String uuid);
 
-	T MappingBeans(HashMap<String, Object> map);
+	T MappingBeans(HashMap<String, String> map);
 }

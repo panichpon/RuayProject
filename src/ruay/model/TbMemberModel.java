@@ -21,6 +21,10 @@ public class TbMemberModel {
 		this.surname = surname;
 		this.gender = gender;
 	}
+	
+	public TbMemberModel(int id) {
+		this.id = id;
+	}
 
 	public int getId() {
 		return id;
@@ -64,7 +68,7 @@ public class TbMemberModel {
 
 	@Override
 	public String toString() {
-		return "TbMember2Model [id=" + id + ", name=" + name + ", surname=" + surname + ", gender=" + gender
+		return "TbMemberModel [id=" + id + ", name=" + name + ", surname=" + surname + ", gender=" + gender
 				+ ", timeReg=" + timeReg + ", getId()=" + getId() + ", getName()=" + getName() + ", getSurname()="
 				+ getSurname() + ", getGender()=" + getGender() + ", getTimeReg()=" + getTimeReg() + ", getClass()="
 				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";

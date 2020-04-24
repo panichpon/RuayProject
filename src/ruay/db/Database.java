@@ -180,8 +180,8 @@ public class Database {
 		return lastId;
 	}
 
-	public HashMap<String, Object> querySingle(String sql) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
+	public HashMap<String, String> querySingle(String sql) {
+		HashMap<String, String> map = new HashMap<String, String>();
 		try {
 			conn = HikariCPDataSource.getConnection();
 			if (conn != null) {
@@ -208,8 +208,8 @@ public class Database {
 		return map;
 	}
 
-	public ArrayList<HashMap<String, Object>> queryList(String sql) {
-		ArrayList<HashMap<String, Object>> mapList = new ArrayList<HashMap<String, Object>>();
+	public ArrayList<HashMap<String, String>> queryList(String sql) {
+		ArrayList<HashMap<String, String>> mapList = new ArrayList<HashMap<String, String>>();
 		try {
 			conn = HikariCPDataSource.getConnection();
 			if (conn != null) {
@@ -218,7 +218,7 @@ public class Database {
 				ResultSetMetaData rsMetaData = rs.getMetaData();
 				if (rs.isBeforeFirst()) {
 					while (rs.next()) {
-						HashMap<String, Object> map = new HashMap<String, Object>();
+						HashMap<String, String> map = new HashMap<String, String>();
 						for (int i = 0; i < rsMetaData.getColumnCount(); i++) {
 							map.put(rsMetaData.getColumnLabel(i + 1), rs.getString(i + 1));
 						}

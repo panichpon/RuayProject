@@ -27,23 +27,27 @@ public class TbMemberDAO implements DAO<TbMemberModel> {
 
 	@Override
 	public int Delete(TbMemberModel bean) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "DELETE FROM tb_member WHERE id = " + bean.getId();
+		return db.remove(sql);
 	}
 
 	@Override
 	public int Update(TbMemberModel bean) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "UPDATE tb_member SET "
+				+ "name = '"+bean.getName()+"', "
+				+ "surname = '"+bean.getSurname()+"', "
+				+ "gender = '"+bean.getGender()+"' "
+				+ "WHERE id = " + bean.getId();
+		return db.update(sql);
 	}
 
 	@Override
 	public ArrayList<TbMemberModel> FindAll() {
 		String sql = "SELECT * FROM tb_member";
-		ArrayList<HashMap<String, Object>> queryList = db.queryList(sql);
+		ArrayList<HashMap<String, String>> queryList = db.queryList(sql);
 		ArrayList<TbMemberModel> memberList = new ArrayList<TbMemberModel>();
-		for (Iterator<HashMap<String, Object>> iterator = queryList.iterator(); iterator.hasNext();) {
-			HashMap<String, Object> next = iterator.next();
+		for (Iterator<HashMap<String, String>> iterator = queryList.iterator(); iterator.hasNext();) {
+			HashMap<String, String> next = iterator.next();
 			TbMemberModel member = MappingBeans(next);
 			memberList.add(member);
 		}
@@ -52,14 +56,18 @@ public class TbMemberDAO implements DAO<TbMemberModel> {
 
 	@Override
 	public TbMemberModel FindByID(TbMemberModel bean) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT * FROM tb_member WHERE id = " + bean.getId();
+		HashMap<String, String> map = db.querySingle(sql);
+		TbMemberModel model = MappingBeans(map);  
+		return model;
 	}
 
 	@Override
 	public TbMemberModel FindByID(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT * FROM tb_member WHERE id = " + id;
+		HashMap<String, String> map = db.querySingle(sql);
+		TbMemberModel model = MappingBeans(map);  
+		return model;
 	}
 
 	@Override
@@ -69,9 +77,16 @@ public class TbMemberDAO implements DAO<TbMemberModel> {
 	}
 
 	@Override
-	public TbMemberModel MappingBeans(HashMap<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+	public TbMemberModel MappingBeans(HashMap<String, String> map) {
+		
+		TbMemberModel tbmModel = new TbMemberModel(
+				Integer.parseInt(map.get("id")),
+				map.get("name"),
+				map.get("surname"),
+				map.get("gender"),
+				map.get("time_reg"));
+
+		return tbmModel;
 	}
 
 }
