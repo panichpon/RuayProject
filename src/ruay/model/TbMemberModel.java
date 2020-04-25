@@ -7,6 +7,10 @@ public class TbMemberModel {
 	private String gender;
 	private String timeReg;
 	
+	public TbMemberModel() {
+		;
+	}
+	
 	public TbMemberModel(int id, String name, String surname, String gender, String timeReg) {
 		super();
 		this.id = id;

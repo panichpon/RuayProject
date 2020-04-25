@@ -28,6 +28,7 @@ public class HomeController {
 		try {
 			TbMemberDAO tbmDAO = new TbMemberDAO();
 			ArrayList<TbMemberModel> tbmMemberList = tbmDAO.FindAll();
+			System.out.println("size: "+tbmMemberList.size());
 			
 			for (int i = 0; i < tbmMemberList.size(); i++) {
 				TbMemberModel tbmModel = tbmMemberList.get(i);
@@ -59,6 +60,68 @@ public class HomeController {
 			//model.setViewName("error");
 		}
 		return model;
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public ModelAndView login(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		response.setContentType("text/html;charset=UTF-8");
+
+		System.out.println("Login Page Requested");
+		ModelAndView model = new ModelAndView();
+		try {
+			
+			return model;
+		} catch (Exception e) {
+			//model.addObject("exception", e);
+			//model.addObject("url", request.getRequestURL());
+			//model.setViewName("error");
+		}
+		return model;
+	}
+	
+	@RequestMapping(value = "/login_auth", method = RequestMethod.POST)
+	@ResponseBody
+	public JsonResponseModel login_auth(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		response.setContentType("text/html;charset=UTF-8");
+
+		System.out.println("Login Auth Page Requested");
+		JsonResponseModel json = new JsonResponseModel();
+		try {
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+			
+			System.out.println(username + ", " + password);
+			//DAO here
+			TbMemberDAO tbmDAO = new TbMemberDAO();
+			//check username in database isEmpty
+			TbMemberModel tbmModelCheck = tbmDAO.FindByLoginCheck(username);
+			if(tbmModelCheck.getId() <= 0) {
+				System.out.println("User not store in database!");
+				json.setStatus("-1");
+				json.setResult("fail");
+			}
+			
+			//check username and password in database
+			TbMemberModel tbmModel = tbmDAO.FindByLogin(username, password);
+			if(tbmModel.getId() > 0) {
+				System.out.println("User and password loged sucessfully!");
+				session.setAttribute("memberLogin", tbmModel); //set login session
+				
+				json.setStatus("1");
+				json.setResult("success");
+			} else {
+				System.out.println("User password not correct!");
+				json.setStatus("0");
+				json.setResult("fail");
+			}
+			
+			return json;
+		} catch (Exception e) {
+			//model.addObject("exception", e);
+			//model.addObject("url", request.getRequestURL());
+			//model.setViewName("error");
+		}
+		return json;
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -174,5 +237,25 @@ public class HomeController {
 			//model.setViewName("error");
 		}
 		return json;
+	}
+	
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public ModelAndView logout(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		response.setContentType("text/html;charset=UTF-8");
+
+		System.out.println("Logout Page Requested");
+		ModelAndView model = new ModelAndView("redirect:/login");
+		try {
+			if(session.getAttribute("memberLogin") != null) {
+				session.removeAttribute("memberLogin");
+			}
+			
+			return model;
+		} catch (Exception e) {
+			//model.addObject("exception", e);
+			//model.addObject("url", request.getRequestURL());
+			//model.setViewName("error");
+		}
+		return model;
 	}
 }

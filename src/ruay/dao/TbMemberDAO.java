@@ -89,4 +89,23 @@ public class TbMemberDAO implements DAO<TbMemberModel> {
 		return tbmModel;
 	}
 
+	public TbMemberModel FindByLogin(String username, String password) {
+		String sql = "SELECT * FROM tb_member WHERE name = '" + username + "' AND surname = '" + password +"'";
+		HashMap<String, String> map = db.querySingle(sql);
+		TbMemberModel model = new TbMemberModel();
+		if (!map.isEmpty()) {
+			model = MappingBeans(map);
+		}
+		return model;
+	}
+	
+	public TbMemberModel FindByLoginCheck(String username) {
+		String sql = "SELECT * FROM tb_member WHERE name = '" + username + "'";
+		HashMap<String, String> map = db.querySingle(sql);
+		TbMemberModel model = new TbMemberModel();
+		if (!map.isEmpty()) {
+			model = MappingBeans(map);
+		}
+		return model;
+	}
 }

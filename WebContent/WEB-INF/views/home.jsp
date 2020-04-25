@@ -31,10 +31,9 @@ tr:nth-child(even) {
 </head>
 <body>
 	<h2>Welcome to Ruay Project</h2>
-	<hr />
-	<a href="${pageContext.request.contextPath}/">Home</a> |
-	<a href="${pageContext.request.contextPath}/about">About</a>
-	<hr />
+	
+	<jsp:include page="/include/menu.jsp"></jsp:include>
+	
 	<h2>FORM1</h2>
 	<form action="${pageContext.request.contextPath}/register" method="POST">
 		<label for="fname">First name:</label><br>
