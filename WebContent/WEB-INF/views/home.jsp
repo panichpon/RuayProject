@@ -1,3 +1,4 @@
+<%@page import="ruay.model.TbInvoiceModel"%>
 <%@page import="ruay.model.TbMemberModel"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -27,6 +28,8 @@ tr:nth-child(even) {
 <%
 	@SuppressWarnings("unchecked")
 	ArrayList<TbMemberModel> tbmMemberList = (ArrayList<TbMemberModel>)request.getAttribute("tbmMemberList"); 
+	@SuppressWarnings("unchecked")
+	ArrayList<TbInvoiceModel> tbiList = (ArrayList<TbInvoiceModel>)request.getAttribute("tbiList"); 
 %>
 </head>
 <body>
@@ -75,6 +78,29 @@ tr:nth-child(even) {
 	    		<a href="${pageContext.request.contextPath}/update_member?id=<%=tbmModel.getId()%>">UPDATE</a> | 
 	    		<a href="${pageContext.request.contextPath}/delete?id=<%=tbmModel.getId()%>">DELETE</a>
 	    	</td>
+		</tr>
+		<% 	} %>
+	</table>
+	<hr />
+	<h2>Invoice Test</h2>
+	<table>
+		<tr>
+	    	<th>ID#</th>
+	    	<th>CID#</th>
+	    	<th>NAME|SUR</th>
+	    	<th>INVOICE DATE</th>
+	    	<th>TOTAL AMOUNT</th>
+	  	</tr>
+	  	<%
+	  		for (int i = 0; i < tbiList.size(); i++) {
+	  			TbInvoiceModel tbiModel = tbiList.get(i);
+	  	%>
+	  	<tr>
+	  		<td><%=tbiModel.getId() %></td>
+	    	<td><%=tbiModel.getCustomerId() %></td>
+	    	<td><%=tbiModel.getCustomer().getName() + " " + tbiModel.getCustomer().getSurname() %></td>
+	    	<td><%=tbiModel.getInvoiceDate() %></td>
+	    	<td><%=tbiModel.getTotalAmount() %></td>
 		</tr>
 		<% 	} %>
 	</table>

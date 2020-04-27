@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import ruay.dao.TbInvoiceDAO;
 import ruay.dao.TbMemberDAO;
 import ruay.model.JsonResponseModel;
+import ruay.model.TbInvoiceModel;
 import ruay.model.TbMemberModel;
 
 @Controller
@@ -35,7 +37,18 @@ public class HomeController {
 				System.out.println(tbmModel.toString());
 			}
 			
+			System.out.println("-------------------------------------------------");
+			/// test invoice select
+			TbInvoiceDAO tbiDAO = new TbInvoiceDAO();
+			ArrayList<TbInvoiceModel> tbiList = tbiDAO.FindAll();
+			
+			for (int i = 0; i < tbiList.size(); i++) {
+				TbInvoiceModel tbiModel = tbiList.get(i);
+				System.out.println(tbiModel.toString());
+			}
+			
 			request.setAttribute("tbmMemberList", tbmMemberList);
+			request.setAttribute("tbiList", tbiList);
 			return model;
 		} catch (Exception e) {
 			//model.addObject("exception", e);
